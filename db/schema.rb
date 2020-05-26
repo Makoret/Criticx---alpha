@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(version: 2020_05_26_153920) do
     t.bigint "platform_id", null: false
   end
 
+  create_table "games_genres", id: false, force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.bigint "genre_id", null: false
+  end
+
+  create_table "games_platforms", id: false, force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.bigint "platform_id", null: false
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
