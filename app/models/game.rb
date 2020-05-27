@@ -7,4 +7,16 @@ class Game < ApplicationRecord
      belongs_to :parent, class_name: 'Game', optional: true
      has_many :reviews, as: :reviewable
      enum category: { main_game: 0, expansion:1}
+
+     validates :name, presence: true, uniqueness: true
+     validates :category, presence: true
+     validates :rating, inclusion: {in: 0..100} 
+     validates :parent_id, presence: true, if: :parent_id_custom_value?
+
+     private
+     def parent_id_custom_value
+          if self.category == "expansion"
+               Game.find(self.parent_id)
+          end
+     end
 end

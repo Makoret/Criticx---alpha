@@ -1,18 +1,13 @@
 class User < ApplicationRecord
      has_many :reviews
-     after_create :after_create do
-          
-     end
+     
+     validates :username, :email, presence: true, uniqueness: true
+     validates :birth_date, presence: true
+
+     validates :bd_checker, numericality: { less_than: Date.today. year - 16, message: "You should be 16 years old to create an account"}
 
      private
-     def count_up
-          if self.user.review_count.nil? self.user.update(review_count:0)
-          end
-          count = self.user.review_count
-          self.user.update(review_count: count + 1)
-     end
-     def count_down
-          count = self.user.review_count
-          self.user.update(review_count: count + 1)
+     def bd_checker
+          self.birth_date.year
      end
 end
