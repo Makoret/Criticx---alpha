@@ -5,3 +5,44 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#db/seeds.rb
+require 'json'
+def parse(file)
+  JSON.parse(File.read(file))
+end
+companies = parse('db/json/companies.json')
+genres = parse('db/json/genres.json')['genres']
+platforms = parse('db/json/platforms.json')
+games = parse('db/json/games.json')
+puts 'Loading companies'
+Company.create!(companies)
+puts 'Loading genres'
+genres.each { |genre| Genre.create!(name: genre) }
+puts 'Loading platforms'
+Platform.create!(platforms)
+puts 'Loading games and associations: genres, platforms and involved_companies'
+games.each do |game|
+  new_game = Game.new(game.slice('name', 'summary', 'release_date', 'category', 'rating'))
+  parent_game = Game.find_by(name: game['parent'])
+  new_game.parent = parent_game
+  new_game.save!
+  genres = Genre.where(name: game['genres'])
+  genres.each { |genre| new_game.genres << genre }
+  if game['platforms']
+    game['platforms'].each do |platform|
+      platform = Platform.find_by(name: platform['name'])
+      new_game.platforms << platform
+    end
+  end
+  if game['involved_companies']
+    game['involved_companies'].each do |involved_company|
+      company = Company.find_by(name: involved_company['name'])
+      involved_company = InvolvedCompany.create!(
+        company: company,
+        game: new_game,
+        developer: involved_company['developer'],
+        publisher: involved_company['publisher'],
+      )
+    end
+  end
+end

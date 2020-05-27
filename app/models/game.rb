@@ -10,11 +10,11 @@ class Game < ApplicationRecord
 
      validates :name, presence: true, uniqueness: true
      validates :category, presence: true
-     validates :rating, inclusion: {in: 0..100} 
+     validates :rating, inclusion: {in: 0..100}, allow_nil: true
      validates :parent_id, presence: true, if: :parent_id_custom_value?
 
      private
-     def parent_id_custom_value
+     def parent_id_custom_value?
           if self.category == "expansion"
                Game.find(self.parent_id)
           end
