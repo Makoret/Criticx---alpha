@@ -3,6 +3,9 @@ class Review < ApplicationRecord
   belongs_to :reviewable, polymorphic: true
   after_create :count_up
   after_destroy :count_down
+  
+  validates :body, presence: true
+  validates :title, presence: true, length: { maximum: 40 }
 
   private
   def count_up
