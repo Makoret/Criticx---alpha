@@ -11,6 +11,7 @@
           <td><%=item.name%></td>
           <td><%=item.rating%></td>
           <td><%= link_to "Show", game_path(item.id), {:id => item.id}%></td>
+          <td><%= link_to "Edit", edit_game_path(item.id), {:id => item.id}%></td>
      </tr>
      <% end %>
 </table>

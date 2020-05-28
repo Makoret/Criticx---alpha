@@ -11,6 +11,7 @@
           <td><%=item.name%></td>
           <td><%=item.country%></td>
           <td><%= link_to "Show", company_path(item.id), {:id => item.id}%></td>
+          <td><%= link_to "Edit", edit_company_path(item.id), {:id => item.id}%></td>
      </tr>
      <% end %>
 </table>
