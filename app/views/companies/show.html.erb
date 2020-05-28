@@ -10,5 +10,5 @@
 <li>
   Games released: <%=@item.games.map {|game| game.name}.join(", ") %>
 </li>
-
+<%= link_to "Delete this Game", company_path(@item), method: :delete, data: { confirm: "Really delete the game?" } %>
 <%= link_to "Back to companies", companies_path %>
