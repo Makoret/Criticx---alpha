@@ -1,0 +1,16 @@
+<h1>All the companies</h1>
+
+<table>
+     <tr>
+          <th>Name</th>
+          <th>Country</th>
+          <th></th>
+     </tr>
+     <% @companies.each do | item | %>
+     <tr>
+          <td><%=item.name%></td>
+          <td><%=item.country%></td>
+          <td><%= link_to "Show", company_path(item.id), {:id => item.id}%></td>
+     </tr>
+     <% end %>
+</table>

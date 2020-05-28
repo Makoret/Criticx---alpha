@@ -1,0 +1,16 @@
+<h1>All the games</h1>
+
+<table>
+     <tr>
+          <th>Name</th>
+          <th>Rating</th>
+          <th></th>
+     </tr>
+     <% @games.each do | item | %>
+     <tr>
+          <td><%=item.name%></td>
+          <td><%=item.rating%></td>
+          <td><%= link_to "Show", game_path(item.id), {:id => item.id}%></td>
+     </tr>
+     <% end %>
+</table>
