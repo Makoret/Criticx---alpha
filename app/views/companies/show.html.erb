@@ -7,3 +7,6 @@
 <li>
   Country: <%=@item.country%>
 </li>
+<li>
+  Games released: <%=@item.games.map {|game| game.name}.join(", ") %>
+</li>
