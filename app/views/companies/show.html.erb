@@ -1,0 +1,12 @@
+<h1><%=@item.name%></h1>
+<p><%=@item.description%></p>
+
+<li>
+  Start date: <%=@item.start_date%>
+</li>
+<li>
+  Country: <%=@item.country%>
+</li>
+<li>
+  Games released: <%=@item.games.map {|game| game.name}.join(", ") %>
+</li>
